@@ -2,13 +2,7 @@ set termencoding=utf-8
 set encoding=utf-8
 set fileencodings=utf-8,cp932,euc-jp,iso-2022-jp
 set fileformats=unix,dos,mac
-
-set expandtab
-set tabstop=2
-set shiftwidth=2
-set softtabstop=2
-set autoindent
-set smartindent
+syntax enable
 
 " Note: Skip initialization for vim-tiny or vim-small.
 if 0 | endif
@@ -37,11 +31,12 @@ NeoBundleFetch 'Shougo/neobundle.vim'
 NeoBundle 'Shougo/neocomplete'
 
 " neocomplete-php
-NeoBundle 'violetyk/neocomplete-php.vim'
+NeoBundleLazy 'violetyk/neocomplete-php.vim', {'autoload': {'filetypes': ['php']}}
 let g:neocomplete_php_locale = 'en'
 
-" wordpress
-NeoBundle 'wardekar/wordpress.vim'
+" javascript
+NeoBundleLazy 'JavaScript-syntax', {'autoload': {'filetypes': ['javascript']}}
+NeoBundleLazy 'pangloss/vim-javascript', {'autoload': {'filetypes': ['javascript']}}
 
 call neobundle#end()
 
@@ -51,5 +46,3 @@ filetype plugin indent on
 " If there are uninstalled bundles found on startup,
 " this will conveniently prompt you to install them.
 NeoBundleCheck
-
-filetype plugin indent on

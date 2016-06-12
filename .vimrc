@@ -2,47 +2,47 @@ set termencoding=utf-8
 set encoding=utf-8
 set fileencodings=utf-8,cp932,euc-jp,iso-2022-jp
 set fileformats=unix,dos,mac
+
 syntax enable
+set expandtab
+set autoindent
 
-" Note: Skip initialization for vim-tiny or vim-small.
-if 0 | endif
-
-if has('vim_starting')
-  if &compatible
-    set nocompatible  " Be iMproved
-  endif
-
-  " Required:
-  set runtimepath+=~/.vim/bundle/neobundle.vim/
+if &compatible
+  set nocompatible
 endif
+set runtimepath^=~/.vim/dein/repos/github.com/Shougo/dein.vim
 
-" Required:
-call neobundle#begin(expand('~/.vim/bundle/'))
+call dein#begin(expand('~/.vim/dein'))
 
-" Let NeoBundle manage NeoBundle
-" Required:
-NeoBundleFetch 'Shougo/neobundle.vim'
+call dein#add('Shougo/dein.vim')
+call dein#add('Shougo/neocomplete.vim')
+call dein#add('Shougo/neosnippet.vim')
+call dein#add('Shougo/unite.vim')
+call dein#add('Shougo/neomru.vim')
+call dein#add('Shougo/vimproc.vim', {'build' : 'make'})
 
-" My Bundles here:
-" Refer to |:NeoBundle-examples|.
-" Note: You don't set neobundle setting in .gvimrc!
+" AlpacaTags
+call dein#add('alpaca-tc/alpaca_tags')
+augroup AlpacaTags
+  autocmd!
+  if exists(':Tags')
+    autocmd BufWritePost Gemfile TagsBundle
+      autocmd BufEnter * TagsSet
+      " 毎回保存と同時更新する場合はコメントを外す
+      "     " autocmd BufWritePost * TagsUpdate
+  endif
+augroup END
 
-" neocomplete
-NeoBundle 'Shougo/neocomplete'
+" Ruby
+call dein#add('tpope/vim-rails', {'on_ft' : 'ruby'})
+call dein#add('basyura/unite-rails')
 
-" neocomplete-php
-NeoBundleLazy 'violetyk/neocomplete-php.vim', {'autoload': {'filetypes': ['php']}}
-let g:neocomplete_php_locale = 'en'
+" JSX
+call dein#add('mxw/vim-jsx')
 
-" javascript
-NeoBundleLazy 'JavaScript-syntax', {'autoload': {'filetypes': ['javascript']}}
-NeoBundleLazy 'pangloss/vim-javascript', {'autoload': {'filetypes': ['javascript']}}
+" JavaScript
+call dein#add('othree/yajs.vim')
 
-call neobundle#end()
+call dein#end()
 
-" Required:
 filetype plugin indent on
-
-" If there are uninstalled bundles found on startup,
-" this will conveniently prompt you to install them.
-NeoBundleCheck

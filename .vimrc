@@ -38,6 +38,10 @@ call dein#add('mxw/vim-jsx')
 " JavaScript
 call dein#add('othree/yajs.vim')
 
+" Syntastic
+call dein#add('scrooloose/syntastic')
+let g:syntastic_mode_map = { 'mode': 'passive', 'active_filetypes': ['ruby'] }
+
 call dein#end()
 
 " Unite
